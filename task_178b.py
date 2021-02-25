@@ -1,6 +1,5 @@
 # getting input data
-n = int(input('Enter the number of elements: '))
-print('Enter elements: ')
+n = int(input())
 sequence = [int(input()) for i in range(n)]
 
 counter = 0
