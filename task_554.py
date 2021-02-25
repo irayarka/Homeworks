@@ -1,20 +1,34 @@
-def pythagorean_triples(n):
-    """
-    function takes n as an argument and returns the
-    number of pythagorean triples from 1 to n.
-    """
-    counter = 0
-    for i in range(1, n + 1):
-        a = i * i
-        for j in range(i, n + 1):
-            b = j * j
-            for k in range(1, n + 1):
-                c = k * k
-                if c == a + b and a <= b <= c:
-                    counter += 1
-                    # print(i, j, k)
-    return counter
+from math import sqrt, ceil
 
 
-n = int(input())    # getting input data
-print(pythagorean_triples(n))   # printing the result
+def gcd(a, b):
+    """
+    Returns greatest common divisor of a and b
+    """
+    if b == 0:
+        return a
+    return gcd(b, a % b)
+
+
+def pythagorean_triples(num):
+    """
+    Finds triples using Euclid's formula
+    (Modified to print not only primitive triples)
+    """
+    for m in range(2, ceil(sqrt(num))):
+        for n in range(1, m):
+            # m and n are coprime and not both odd
+            if gcd(m, n) == 1 and (m - n) % 2 and (m ** 2 + n ** 2) < num:
+                a = m ** 2 - n ** 2
+                b = 2 * m * n
+                c = m ** 2 + n ** 2
+                if a > b:
+                    a, b = b, a
+                k = 1
+                while k * c < num:
+                    print(k * a, k * b, k * c)
+                    k += 1
+
+
+num = int(input())
+pythagorean_triples(num + 1)
